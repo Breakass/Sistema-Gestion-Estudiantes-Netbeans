@@ -1,6 +1,5 @@
 # Sistema Gestión Estudiantes (NetBeans)
 
-
 Proyecto base de NetBeans (Ant), listo para que el equipo agregue las clases del sistema de gestión de estudiantes.
 
 ## Estructura
@@ -59,6 +58,7 @@ A medida que el equipo implemente nuevas funcionalidades, se documentarán aquí
 El equipo trabajará mediante ramas individuales para mantener separados los aportes de cada integrante.
 
 Cada cambio será registrado mediante commits descriptivos y posteriormente integrado a la rama `main` mediante Pull Requests.
+
 ## Cómo ejecutar el proyecto
 
 1. Clonar el repositorio.
