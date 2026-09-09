@@ -3,6 +3,7 @@ package GestionEstudiantes;
 import java.util.ArrayList;
 
 public class Estudiante {
+    private static final int MAX_CALIFICACIONES = 3;
     private String codigo;
     private String nombre;
     private ArrayList<Double> calificaciones;
@@ -34,7 +35,11 @@ public class Estudiante {
     }
 
     // Validamos que esté en el rango (0 - 20)
-    public void agregarCalificacion(double nota) throws CalificacionInvalidaException {
+    public void agregarCalificacion(double nota) throws CalificacionInvalidaException, LimiteCalificacionesException {
+        if (calificaciones.size() >= MAX_CALIFICACIONES) {
+            throw new LimiteCalificacionesException(
+                    "El estudiante " + nombre + " ya tiene el máximo de " + MAX_CALIFICACIONES + " calificaciones registradas.");
+        }
         if (nota < 0 || nota > 20) {
             throw new CalificacionInvalidaException(
                 "La calificacion " + nota + " esta fuera del rango permitido (0 - 20).");
@@ -56,7 +61,8 @@ public class Estudiante {
 
     @Override
     public String toString() {
-        return codigo + " - " + nombre + " (promedio: " + String.format("%.2f", calcularPromedio()) + ")";
+        String notasTexto = calificaciones.isEmpty() ? "sin notas registradas" : "notas: " + calificaciones;
+        return codigo + " - " + nombre + " (" + notasTexto + ")";
     }
 
 }
