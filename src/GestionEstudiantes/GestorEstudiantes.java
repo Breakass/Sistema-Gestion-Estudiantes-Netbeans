@@ -29,7 +29,7 @@ public class GestorEstudiantes {
     }
 
     public void registrarCalificacion(String codigo, double nota)
-            throws EstudianteNoEncontradoException, CalificacionInvalidaException {
+            throws EstudianteNoEncontradoException, CalificacionInvalidaException, LimiteCalificacionesException {
         Estudiante estudiante = buscarPorCodigo(codigo);
         estudiante.agregarCalificacion(nota);
     }
