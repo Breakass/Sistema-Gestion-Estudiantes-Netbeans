@@ -108,7 +108,7 @@ public class Main {
      }
  }
     private static void registrarEstudiante(GestorEstudiantes gestor, Scanner sc) {
-        String codigo = leerCodigoDisponible(gestor, sc, "Co1digo del estudiante (ej. N00247732): ");
+        String codigo = leerCodigoDisponible(gestor, sc, "Codigo del estudiante (ej. N00247732): ");
         String nombre = leerTexto(sc, "Nombre del estudiante: ");
         try {
             gestor.registrarEstudiante(codigo, nombre);
@@ -128,13 +128,35 @@ public class Main {
     }
     private static void registrarCalificacion(GestorEstudiantes gestor, Scanner sc) {
         String codigo = leerCodigo(sc, "Codigo del estudiante (ej. N00247732): ");
-        double nota = leerDecimal(sc, "Calificacion (0 - 20): ");
-
-        try {
-            gestor.registrarCalificacion(codigo, nota);
-            System.out.println("Calificacion registrada correctamente.");
-        } catch (EstudianteNoEncontradoException | CalificacionInvalidaException e) {
-            System.out.println("Error: " + e.getMessage());
+        while (true) {
+            double nota = leerDecimal(sc, "Calificacion (0 - 20): ");
+            try {
+                gestor.registrarCalificacion(codigo, nota);
+                System.out.println("Calificacion registrada correctamente.");
+            }
+            catch (EstudianteNoEncontradoException | LimiteCalificacionesException e) {
+                System.out.println("Error: " + e.getMessage());
+                return;
+            }
+            catch (CalificacionInvalidaException e) {
+                System.out.println("Error: " + e.getMessage());
+                continue;
+            }
+            int cantidad;
+            try {
+                cantidad = gestor.buscarPorCodigo(codigo).getCalificaciones().size();
+            }
+            catch (EstudianteNoEncontradoException e) {
+                return;
+            }
+            if (cantidad >= 3) {
+                System.out.println("Este estudiante ya alcanzo el maximo de 3 calificaciones.");
+                return;
+            }
+            String respuesta = leerTexto(sc, "¿Deseas agregar otra calificacion para este estudiante? (S/N): ");
+            if (!respuesta.equalsIgnoreCase("S")) {
+                return;
+            }
         }
     }
 
