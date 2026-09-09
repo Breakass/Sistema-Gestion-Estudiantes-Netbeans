@@ -8,4 +8,5 @@
 
 # OS / editor junk
 .DS_Store
+git-workflow.ps1
 Thumbs.db
